@@ -1,11 +1,28 @@
-import { AspectRatio, Avatar, Flex, Heading, Image, Stack, Text } from "@chakra-ui/react"
+import { AspectRatio, Avatar, Button, Flex, Heading, Icon, Image, Stack, Text } from "@chakra-ui/react"
 import Navbar from "../components/navbar"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { Footer } from "../components/footer"
+import { FcLike, FcLikePlaceholder } from "react-icons/fc";
 
 export const BlogDetail = () => {
+
+    const [like, setLike] = useState(false)
+
+    const token = localStorage.getItem("token")
+
+    const postLike = async() => {
+        try {
+            await axios.post("https://minpro-blog.purwadhikabootcamp.com/api/blog/like", {BlogId: params.id}, {
+                headers: {
+                    Authorization: `Bearer: ${token}`
+                }
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     const params = useParams()
 
@@ -24,6 +41,11 @@ export const BlogDetail = () => {
     useEffect(() => {
         getBlogDetail()
     }, [])
+
+    const handleLike = () => {
+        postLike()
+        setLike(true)
+    }
 
     const { Category, User, content, createdAt, imageURL, videoURL, title } = blogDetail
 
@@ -58,6 +80,21 @@ export const BlogDetail = () => {
                 </Text>
             </Stack>
 
+            {
+                token ? (
+                    <Button
+                    position='relative'
+                    w='min'
+                    bottom='100px'
+                    size='lg'
+                    left='800px'
+                    onClick={handleLike}
+                    >
+                        {like ? <Icon as={FcLike} size='2xl' /> : <Icon as={FcLikePlaceholder} size='2xl' /> }
+                    </Button>
+            ) : null
+            }
+
             {videoURL === null ? (
                 <Image
                 alignSelf='center'
@@ -70,7 +107,9 @@ export const BlogDetail = () => {
                 gap='5rem'
                 >
                     <Image
-                    boxSize='450px'
+                    maxW='500px'
+                    maxH='450px'
+                    // boxSize='450px'
                     borderRadius='10px'
                     marginBottom='2rem'
                     marginTop='2rem'

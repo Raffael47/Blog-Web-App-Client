@@ -49,7 +49,7 @@ export default function CaptionCarousel() {
       try {
           const {data} = await axios.get(`https://minpro-blog.purwadhikabootcamp.com/api/blog?sort=DESC`)
           setNewBlog(data.result)
-          console.log(data.result)
+        //   console.log(data.result)
       } catch (error) {
           console.log(error)
       }

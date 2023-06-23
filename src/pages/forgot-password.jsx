@@ -9,7 +9,7 @@ export const ForgotPassword = ()  => {
 
     const handleSubmit = async(value) => {
         try {
-            value.FE_URL = ""
+            value.FE_URL = "http:/localhost:3000"
             await axios.put("https://minpro-blog.purwadhikabootcamp.com/api/auth/forgotPass", value)
         } catch (error) {
             console.log(error)

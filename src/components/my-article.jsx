@@ -1,31 +1,48 @@
-import { useDispatch, useSelector } from "react-redux"
-import { Box, Button, Flex, HStack, Heading, Image, Stack } from "@chakra-ui/react"
-import { useEffect, useState } from "react"
+import { Stack, Image, Heading, HStack, Button, Flex, Icon } from "@chakra-ui/react"
 import axios from "axios"
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
+import { AiFillDelete } from "react-icons/ai";
 
-export const Blogs = () => {
-
-    const [blog, setBlog] = useState({})
-    const [blogList, setBlogList] = useState([])
+export const MyArticle = () => {
+    const token = localStorage.getItem("token")
+    const [data, setData] = useState([])
     const [blogPage, setBlogPage] = useState(1)
+    const [blog, setBlog] = useState({})
 
-    const getNewBlog = async(value) => {
+    const getData = async(value) => {
         try {
-            const {data} = await axios.get(`https://minpro-blog.purwadhikabootcamp.com/api/blog?page=${value}`)
+            const {data} = await axios.get(`https://minpro-blog.purwadhikabootcamp.com/api/blog/pagUser?page=${value}`, {
+                headers: {
+                    Authorization: `Bearer: ${token}`
+                }
+            })
             setBlog(data)
-            setBlogList(data.result)
+            setData(data.result)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const deletePost = async(value) => {
+        try {
+            await axios.patch(`https://minpro-blog.purwadhikabootcamp.com/api/blog/remove/${value}`, {}, {
+                headers: {
+                    Authorization: `Bearer: ${token}`
+                }
+            })
         } catch (error) {
             console.log(error)
         }
     }
 
     useEffect(() => {
-        getNewBlog(blogPage)
+        getData(blogPage)
     }, [blogPage])
 
     return (
-        <Stack>
+        <Stack
+        overflow='hidden'>
             <Flex
             flexWrap='wrap'
             w='100%'
@@ -34,7 +51,7 @@ export const Blogs = () => {
             gap='2rem'
             justifyContent='center'
             >
-                {blogList.map(({id, title, imageURL }) => {
+                {data.map(({id, title, imageURL }) => {
                     return (
                         <Stack
                         key={id}
@@ -57,11 +74,19 @@ export const Blogs = () => {
                                 >
                                     {title}
                                 </Heading>
-                            </Link>
+                                </Link>
+
+                                <Button
+                                onClick={() => deletePost(id)}
+                                _hover={{bgColor:'red'}}
+                                w='20px'
+                                h='40px'
+                                >
+                                    <Icon _hover={{color: 'white'}} as={AiFillDelete} w='5' h ='5' />
+                                </Button>
                         </Stack>
                     )
                 })}
-
             </Flex>
 
             <HStack
@@ -94,7 +119,6 @@ export const Blogs = () => {
                     )
                 }
             </HStack>
-
         </Stack>
     )
 }
