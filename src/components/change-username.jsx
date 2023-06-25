@@ -21,7 +21,7 @@ export const ChangeUsername = () => {
     const handleUsername = async(value) => {
         try {
             value.currentUsername = username
-            value.FE_URL = "https://main--papaya-cajeta-e43767.netlify.app/"
+            value.FE_URL = "https://main--papaya-cajeta-e43767.netlify.app"
             await axios.patch("https://minpro-blog.purwadhikabootcamp.com/api/auth/changeUsername", value, {
                 headers: {
                     "Authorization":`Bearer ${token}`

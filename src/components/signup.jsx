@@ -37,7 +37,7 @@ export const Signup = () => {
 
     const handleSubmit = async(value) => {
         try {
-            value.FE_URL = "https://main--papaya-cajeta-e43767.netlify.app/"
+            value.FE_URL = "https://main--papaya-cajeta-e43767.netlify.app"
             await Axios.post("https://minpro-blog.purwadhikabootcamp.com/api/auth/", value)
             toast({
                 title:'Check your email to verify',
