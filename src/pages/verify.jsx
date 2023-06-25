@@ -11,7 +11,7 @@ export const Verify = () => {
 
     const handleSubmit = async() => {
         try {
-            const response = await Axios.patch(
+            await Axios.patch(
                 "https://minpro-blog.purwadhikabootcamp.com/api/auth/verify/", {},
                 {
                     headers :{

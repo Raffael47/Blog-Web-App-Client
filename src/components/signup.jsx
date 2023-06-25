@@ -1,13 +1,15 @@
-import { Button, ButtonGroup, Flex, FormLabel, Heading, Icon, Input, InputGroup, Stack, color, useToast } from "@chakra-ui/react"
+import { Button, ButtonGroup, Flex, FormLabel, Heading, Icon, Input, InputGroup, Stack, Text, color, useToast } from "@chakra-ui/react"
 import { useState } from "react"
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { Formik, Form, ErrorMessage, Field } from "formik";
 import * as Yup from "yup";
 import Axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Signup = () => {
     const [show, setShow] = useState(false)
     const [confirmShow, setConfirmShow] = useState(false)
+    const navigate = useNavigate()
 
     const handlePassword = () => setShow(!show)
     const handleConfirmPassword = () => setConfirmShow(!confirmShow)
@@ -32,7 +34,7 @@ export const Signup = () => {
     })
 
     const toast = useToast()
-    
+
     const handleSubmit = async(value) => {
         try {
             value.FE_URL = "https://main--papaya-cajeta-e43767.netlify.app/"
@@ -44,6 +46,11 @@ export const Signup = () => {
             })
         } catch (err) {
             console.log(err)
+            toast({
+                title:'Email or phone number has already been used',
+                status: 'info',
+                isClosable: true
+            })
         }
     }
 
@@ -51,7 +58,7 @@ export const Signup = () => {
     <Stack
         w='100vw'
         h='100vh'
-        bgColor='blackAlpha.700'
+        bgColor='gray.900'
         padding='0 20rem'
         gap='1.5rem'
         justifyContent='center'
@@ -194,6 +201,10 @@ export const Signup = () => {
                             style={{ color: "red", fontSize: "15px", marginTop: 0 }}
                             />
                             </Flex>
+
+                    <Text as={Link} to={'/'} color={'green.500'} justifySelf={'end'}>
+                    Back to home
+                    </Text>
                     
                     </Flex>
 
