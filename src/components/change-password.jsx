@@ -1,10 +1,9 @@
-import { Button, ButtonGroup, Flex, FormLabel, Heading, Icon, Input, InputGroup, Stack } from "@chakra-ui/react"
+import { Button, ButtonGroup, Flex, FormLabel, Heading, Icon, Input, InputGroup, Stack, useToast } from "@chakra-ui/react"
 import { Formik, Form, ErrorMessage, Field } from "formik";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useState } from "react";
 import * as Yup from "yup";
 import axios from "axios";
-import { useParams } from "react-router-dom";
 
 export const ChangePassword = () => {
 
@@ -21,25 +20,36 @@ export const ChangePassword = () => {
     const passwordSchema = Yup.object().shape({
         currentPassword: Yup.string()
         .min(6, "Your password needs to have at least 6 characters")
-        .matches()
+        .matches(/[a-z]+/, "Password no lowercase")
+        .matches(/[A-Z]+/, "Password no uppercase")
+        .matches(/[!@#$%^&*()-+]+/, "Password needs to have at least 1 special character")
         .required("Password is required"),
         password: Yup.string()
         .min(6, "Your password needs to have at least 6 characters")
-        .matches()
+        .matches(/[a-z]+/, "Password no lowercase")
+        .matches(/[A-Z]+/, "Password no uppercase")
+        .matches(/[!@#$%^&*()-+]+/, "Password needs to have at least 1 special character")
         .required("Password is required"),
         confirmPassword: Yup.string()
         .oneOf([Yup.ref("password"), null], "Password must match")
         .required()
     })
 
+    const toast = useToast()
+
     const handleSubmit = async(value) => {
         try {
-            const response = await axios.patch("https://minpro-blog.purwadhikabootcamp.com/api/auth/changePass", value , {
+            value.FE_URL = "https://papaya-cajeta-e43767.netlify.app"
+            await axios.patch("https://minpro-blog.purwadhikabootcamp.com/api/auth/changePass", value , {
                 headers: {
                     "Authorization":`Bearer ${token}`
                 }
             })
-            console.log(value)
+            toast({
+                title:'Password is updated',
+                status: 'success',
+                isClosable: true
+            })
         } catch (error) {
             console.log(error)
         }
@@ -49,14 +59,10 @@ export const ChangePassword = () => {
 
     return (
         <Stack
-            w='30vw'
-            minH='60vh'
-            bgColor='gray.150'
-            border='1px solid black'
-            borderRadius='10px'
-            padding='1rem'
+            w='100%'
             alignItems='center'
             justifyContent='center'
+            gap='2rem'
             >
                 <Heading>
                     Change Password
@@ -154,7 +160,7 @@ export const ChangePassword = () => {
                                     <Button
                                     type='submit'
                                     w='100%'
-                                    _hover={{bgColor:'orange'}}
+                                    _hover={{bgColor:'green.500', color:'white'}}
                                     >
                                         Change Password
                                     </Button>

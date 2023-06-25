@@ -6,7 +6,7 @@ export const LoginPage = () => {
     <Stack
         w='100vw'
         h='100vh'
-        bgColor='black'
+        bgColor='grey.900'
         justifyContent='center'
         alignItems='center'
     >

@@ -1,9 +1,13 @@
-import { Button, Flex, Heading, HStack, Text, Avatar } from "@chakra-ui/react";
+import { Button, Flex, Heading, HStack, Text, Avatar, Icon } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { FaHome, FaSearch } from "react-icons/fa";
+import { IoIosCreate, IoPersonSharp, Iologout } from "react-icons/io";
+import { LuLogIn, LuLogOut } from "react-icons/lu";
+import { GoPerson } from "react-icons/go";
 
 export default function Navbar() {
-    const {username, imgProfile} = useSelector(state => state.user.authValue)
+    const {imgProfile} = useSelector(state => state.user.authValue)
 
     const navigate = useNavigate()
     const token = localStorage.getItem("token")
@@ -23,6 +27,7 @@ export default function Navbar() {
     justifyItems='center'
     marginBottom='2rem'
     overflowX='hidden'
+    zIndex='2'
     >
 
         <Flex
@@ -34,52 +39,56 @@ export default function Navbar() {
             size='xl'
             fontWeight='bold'
             color='white'
-            _hover={{color: 'orange'}}
+            _hover={{color: 'green.500'}}
             >
                 MY BLOG
             </Heading>
 
             <Link to="/">
-                <Text
+                {/* <Text
                 color='white'
-                _hover={{color: 'orange'}}
+                _hover={{color: 'green.500'}}
                 >
                     HOME
-                </Text>
+                </Text> */}
+                <Icon as={FaHome} w='7' h='7' color={'white'} _hover={{color: 'green.500'}} />
             </Link>
 
             <Link to="/advanced-search">
-                <Text
+                {/* <Text
                 color='white'
-                _hover={{color: 'orange'}}
+                _hover={{color: 'green.500'}}
                 >
                     SEARCH
-                </Text>
+                </Text> */}
+                <Icon as={FaSearch} w='7' h='7' color={'white'} _hover={{color: 'green.500'}} />
             </Link>
 
             {token ? (
                 <Link to="/create-blog">
-                <Text
+                {/* <Text
                 color='white'
-                _hover={{color: 'orange'}}
+                _hover={{color: 'green.500'}}
                 >
                     CREATE
-                </Text>
+                </Text> */}
+                <Icon as={IoIosCreate} w='7' h='7' color={'white'} _hover={{color: 'green.500'}} />
                 </Link>
             ) : (
                 <Link to="/log-in">
-                <Text
+                {/* <Text
                 color='white'
-                _hover={{color: 'orange'}}
+                _hover={{color: 'green.500'}}
                 >
                     CREATE
-                </Text>
+                </Text> */}
+                <Icon as={IoIosCreate} w='7' h='7' color={'white'} _hover={{color: 'green.500'}} />
                 </Link>
             )}
         </Flex>
 
         <Flex 
-        gap='1rem' 
+        gap='1.5rem' 
         justifyContent='flex-end'
         alignItems='center'
         w='50%'
@@ -91,22 +100,34 @@ export default function Navbar() {
                     src={`https://minpro-blog.purwadhikabootcamp.com/${imgProfile}`}
                     />
                     <Button
-                    _hover={{bg:'orange'}}
-                    onClick={() => navigate("/user-settings")}
+                    rightIcon={<Icon as={GoPerson} w='7' h='7' color={'black'} _hover={{color: 'green.500'}} />}
+                    _hover={{bg:'green.500', color:'white'}}
+                    onClick={() => navigate("/blogs")}
                     >
-                        Settings
+                        Profile
                     </Button>
                     <Button
-                    _hover={{bg:'orange'}}
+                    rightIcon={<Icon as={LuLogOut} w='7' h='7' color={'black'} _hover={{color: 'green.500'}} />}
+                    _hover={{bg:'green.500', color:'white'}}
                     onClick={logout}
                     >
-                        Log out
+                        Log out   
+                        {/* <Icon as={LuLogOut} w='7' h='7' color={'black'} _hover={{color: 'green.500'}} /> */}
                     </Button>
                     </>
                 ) : (
                     <>
-                    <Button _hover={{bg:'orange'}} onClick={() => navigate("/log-in")} >Log In</Button>
-                    <Button _hover={{bg:'orange'}} onClick={() => navigate("/sign-up")} >Sign Up</Button>
+                    <Button 
+                    rightIcon={<Icon as={LuLogIn} w='7' h='7' color={'black'} _hover={{color: 'green.500'}} />}
+                    _hover={{bg:'green.500', color:'white'}} 
+                    onClick={() => navigate("/log-in")} 
+                    >Log In
+                    </Button>
+                    <Button 
+                    _hover={{bg:'green.500', color:'white'}} 
+                    onClick={() => navigate("/sign-up")} 
+                    >Sign Up
+                    </Button>
                     </>
                 )
             }

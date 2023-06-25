@@ -10,9 +10,12 @@ import { setAuth } from "./redux/userSlice";
 import { useEffect } from "react";
 import { ResetPassword } from "./pages/reset-password";
 import { CreateBlog } from "./pages/create-blog";
-import { UserSettings } from "./pages/user-settings";
 import { BlogDetail } from "./pages/blog-detail";
 import { SearchPage } from "./pages/search";
+import { ProfBlog } from "./pages/profile-myarticle";
+import { ProfLiked } from "./pages/profile-likedblog";
+import { ProfUpdate } from "./pages/profile-update";
+import { ProfPass } from "./pages/profile-pass";
 
 
 function App() {
@@ -28,9 +31,12 @@ function App() {
     { path:"/forgot-password", element: <ForgotPassword/> },
     { path:"/reset-password/:token", element: <ResetPassword/> },
     { path:"/create-blog", element: <CreateBlog/> },
-    { path:"/user-settings", element: <UserSettings/> },
     { path: "/blog-detail/:id", element: <BlogDetail/> },
-    { path: "/advanced-search", element: <SearchPage/> }
+    { path: "/advanced-search", element: <SearchPage/> },
+    { path:"/blogs", element: <ProfBlog/> },
+    { path:"/liked", element: <ProfLiked/> },
+    { path:"/update", element: <ProfUpdate/> },
+    { path:"/password", element: <ProfPass/> },
   ])
 
   const token = localStorage.getItem('token')

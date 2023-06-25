@@ -1,23 +1,17 @@
 import Navbar from "../components/navbar"
-import { Carousel } from "../components/carousel"
-import { Blogs } from "../components/blogs"
 import { Stack } from "@chakra-ui/react"
-import { Footer } from "../components/footer"
-import { FavBlog } from "../components/favBlog"
-import CaptionCarousel from "../components/carousel2"
 import { CarouselTest } from "../components/carousel3"
+import Footer from "../components/footer"
+import { FavBlogs } from "../components/favBlog"
 
 export const Home = () => {
     return (
         <Stack
-        // overflowX='hidden'
+        overflowX='hidden'
         >
             <Navbar/>
             <CarouselTest/>
-            {/* <Carousel/> */}
-            {/* <CaptionCarousel/> */}
-            <FavBlog/>
-            <Blogs/>
+            <FavBlogs/>
             <Footer/>
         </Stack>
     )

@@ -1,10 +1,12 @@
-import { Flex, Input, Select, Stack, Button, Heading, HStack, Image } from "@chakra-ui/react"
+import { Flex, Input, Select, Stack, Button, Heading, HStack, Image, Icon, Center, Box, Text, Avatar, InputGroup, InputLeftElement, FormLabel } from "@chakra-ui/react"
 import Navbar from "../components/navbar"
 import axios from "axios"
 import { useEffect, useRef, useState } from "react"
 import { Form, Formik } from "formik"
-import { Link } from "react-router-dom";
-import { Footer } from "../components/footer"
+import { Link, useNavigate } from "react-router-dom";
+import Footer from "../components/footer"
+import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons"
+import { FaSearch } from "react-icons/fa"
 
 export const SearchPage = () => {
 
@@ -56,6 +58,9 @@ export const SearchPage = () => {
         handleSearch()
     }, [blogPage])
 
+    const {sortDate} = require("../functions/date")
+    const navigate = useNavigate()
+
     return (
         <Stack
         overflow='hidden'>
@@ -74,27 +79,48 @@ export const SearchPage = () => {
                 alignSelf='center'
                 w='40%'
                 marginBottom='3rem'>
-                    <Input
-                    type='search'
-                    name='search'
-                    ref={searchRef}
-                    border='1px solid black'
-                    placeholder="Keywords or title"
-                    />
+                    <InputGroup>
+
+                        <InputLeftElement>
+                            <Icon as={FaSearch}  />
+                        </InputLeftElement>
+
+                        <Input
+                        type='search'
+                        name='search'
+                        ref={searchRef}
+                        border='1px solid black'
+                        placeholder="Keywords or title"
+                        borderRadius='10px'
+                        _hover={{borderColor:'green.500'}}
+                        />
+                    </InputGroup>
 
                     <Select
                     ref={ascendRef}
                     border='1px solid black'
+                    borderRadius='10px'
+                    _hover={{borderColor:'green.500'}}
                     >
-                        <option value='DESC'>Descending</option>
-                        <option value='ASC'>Ascending</option>
+                        <option value='DESC'>Latest</option>
+                        <option value='ASC'>Oldest</option>
                     </Select>
 
+                    <FormLabel
+                    className="categories"
+                    mt='1rem'
+                    mb='0'
+                    fontSize='xl'
+                    >
+                        CATEGORY
+                    </FormLabel>
                     <Select
                     name='categories'
                     placeholder="All"
                     defaultValue=''
                     ref={categoryRef}
+                    borderRadius='10px'
+                    _hover={{borderColor:'green.500'}}
                     border='1px solid black'>
                         {category.map(({id, name}) => {
                             return (
@@ -106,7 +132,7 @@ export const SearchPage = () => {
                     </Select>
                     <Button
                     onClick={handleSearch}
-                    _hover={{bgColor:"orange"}}
+                    _hover={{bgColor:"green.500", color:'white'}}
                     w='100%'
                     >
                         SEARCH
@@ -116,48 +142,91 @@ export const SearchPage = () => {
                 <Stack>
                     {
                         blogList.length === 0 ? (
-                            <Heading
-                            alignSelf='center'
-                            >
-                                Blog not found
-                            </Heading>
+                            <Stack
+                            w='100%'
+                            align={'center'}>
+                                <Heading
+                                alignSelf='center'
+                                >
+                                    No result found
+                                </Heading>
+                                <Text
+                                fontSize='md'
+                                >
+                                    Sorry, but nothing matched your criteria.
+                                </Text>
+                            </Stack>
                         ) : (
                             <>
-                            <Flex
-                            flexWrap='wrap'
-                            w='100%'
-                            h='100%'
-                            padding='3rem'
-                            gap='2rem'
-                            justifyContent='center'
-                            >
-                                {blogList.map(({id, title, imageURL }) => {
-                                    return (
-                                        <Stack
-                                        border='1px solid black'
-                                        borderRadius='10px'
-                                        w='250px'
-                                        minH='250px'
-                                        padding='0 1rem'
-                                        alignItems='center'
-                                        >
-                                            <Link to={`/blog-detail/${id}`}>
-                                                <Image 
-                                                src={`https://minpro-blog.purwadhikabootcamp.com/${imageURL}`} 
-                                                boxSize='200px'
-                                                />
-                                                <Heading
-                                                size='sm'
-                                                alignSelf='flex-start'
-                                                >
-                                                    {title}
-                                                </Heading>
-                                            </Link>
-                                        </Stack>
-                                    )
-                                })}
+            <Flex
+            flexWrap='wrap'
+            w='100%'
+            h='100%'
+            padding='3rem'
+            gap='2rem'
+            justifyContent='center'
+            >
+                {blogList.map(({id, title, imageURL, User, Category, createdAt, country }) => {
+                    return (
+                        <Center py={6}>
+                            <Box
+                                key={id}
+                                w={'250px'}
+                                h={'500px'}
+                                bg={"gray.900"}
+                                boxShadow={'2xl'}
+                                borderRadius='10px'
+                                p={6}
+                                overflow={'hidden'}>
+                                <Box
+                                bg={'green.500'}
+                                border='1px solid white'
+                                borderRadius='10px'
+                                mb={6}
+                                pos={'relative'}
+                                onClick={() => navigate(`/blog-detail/${id}`)}>
+                                <Image
+                                    borderRadius='10px'
+                                    src={
+                                    `https://minpro-blog.purwadhikabootcamp.com/${imageURL}`
+                                    }
+                                    boxSize='210px'
+                                />
+                                </Box>
+                                <Stack>
+                                <Text
+                                    color={'green.500'}
+                                    textTransform={'uppercase'}
+                                    fontWeight={800}
+                                    fontSize={'sm'}
+                                    letterSpacing={1.1}>
+                                    {Category.name}
+                                </Text>
+                                <Heading
+                                    color={"white"}
+                                    fontSize={'xl'}
+                                    fontFamily={'body'}>
+                                    {title}
+                                </Heading>
+                                </Stack>
+                                <Stack mt='1rem' direction={'row'} spacing={4} align={'center'}>
+                                <Avatar
+                                    src={`https://minpro-blog.purwadhikabootcamp.com/${User.imgProfile}`}
+                                    alt={'Author'}
+                                />
+                                <Stack direction={'column'} spacing={0} fontSize={'sm'}>
+                                    <Text color={'gray.500'} fontWeight={600}>{User.username}</Text>
+                                    <Text color={'gray.500'}>
+                                        {country}~{sortDate(createdAt)}
+                                    </Text>
+                                </Stack>
+                                </Stack>
+                            </Box>
+                        </Center>
+                    )
+                })}
 
-                            </Flex>
+            </Flex>
 
                             <HStack
                             justifyContent='center'
@@ -167,9 +236,9 @@ export const SearchPage = () => {
                                     blogPage === 1 ? null : (
                                         <Button
                                         onClick={() => setBlogPage(blogPage - 1)}
-                                        _hover={{bgColor:"orange"}}
+                                        _hover={{bgColor:"green.500"}}
                                         >
-                                            Prev
+                                            <Icon as={ArrowLeftIcon} w='5' h='5' color={'black'} _hover={{bgColor:'green.500'}} />
                                         </Button>
                                     )
                                 }
@@ -185,9 +254,9 @@ export const SearchPage = () => {
                                     blogPage === blog.page ? null : (
                                         <Button
                                         onClick={() => setBlogPage(blogPage + 1)}
-                                        _hover={{bgColor:"orange"}}
+                                        _hover={{bgColor:"green.500"}}
                                         >
-                                            Next
+                                            <Icon as={ArrowRightIcon} w='5' h='5' color={'black'} _hover={{bgColor:'green.500'}} />
                                         </Button>
                                     )
                                 }

@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Flex, Icon, Heading, Input, InputGroup, Stack, FormLabel } from "@chakra-ui/react"
+import { Button, ButtonGroup, Flex, Icon, Heading, Input, InputGroup, Stack, FormLabel, useToast } from "@chakra-ui/react"
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
@@ -9,6 +9,8 @@ import { setAuth } from "../redux/userSlice";
 import { useNavigate, Link } from "react-router-dom";
 
 export const Login = () => {
+
+    const toast = useToast()
 
     const navigate = useNavigate()
     const dispatch = useDispatch();
@@ -29,7 +31,9 @@ export const Login = () => {
                 .required("Username is required"),
                 password: Yup.string()
                     .min(6, "Your password needs to be at least 6 characters long")
-                    .matches()
+                    .matches(/[a-z]+/, "Password no lowercase")
+                    .matches(/[A-Z]+/, "Password no uppercase")
+                    .matches(/[!@#$%^&*()-+]+/, "Password needs to have at least 1 special character")
                     .required("Password is required")
         })
         ),
@@ -40,7 +44,9 @@ export const Login = () => {
                     .required("Email is required"),
                 password: Yup.string()
                     .min(6, "Your password needs to be at least 6 characters long")
-                    .matches()
+                    .matches(/[a-z]+/, "Password no lowercase")
+                    .matches(/[A-Z]+/, "Password no uppercase")
+                    .matches(/[!@#$%^&*()-+]+/, "Password needs to have at least 1 special character")
                     .required("Password is required")
         })
         ),
@@ -50,7 +56,9 @@ export const Login = () => {
                     .required("Phone number is required"),  
                 password: Yup.string()
                     .min(6, "Your password needs to be at least 6 characters long")
-                    .matches()
+                    .matches(/[a-z]+/, "Password no lowercase")
+                    .matches(/[A-Z]+/, "Password no uppercase")
+                    .matches(/[!@#$%^&*()-+]+/, "Password needs to have at least 1 special character")
                     .required("Password is required")
         })
         )
@@ -67,6 +75,12 @@ export const Login = () => {
             navigate("/")
         } catch (err) {
             console.log(err)
+            toast({
+                title: `Sorry, your password is incorrent`,
+                status: 'error',
+                isClosable: true,
+                description: 'Please double check your password'
+            })
         }
     }
     
@@ -145,14 +159,23 @@ export const Login = () => {
                             <Flex
                                 color='purple'
                                 justifyContent='end'
+                                margin='1rem'
                             >
                                 <Link to="/forgot-password">Forgot password?</Link>
+                            </Flex>
+
+                            <Flex
+                                color='purple'
+                                justifyContent='end'
+                                margin='1rem'
+                            >
+                                <Link to="/">Continue as guest</Link>
                             </Flex>
 
                             <Button 
                             w='100%' 
                             type="submit"
-                            _hover={{bgColor: 'orange'}}
+                            _hover={{bgColor: 'green.500'}}
                             >
                                 Log in
                             </Button>

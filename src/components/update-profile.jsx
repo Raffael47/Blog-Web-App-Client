@@ -8,10 +8,9 @@ export const ChangeProfile = () => {
 
     return (
         <Stack
-        bgColor='gray.150'
-        border='1px solid black'
-        padding='1rem'
+        // padding='1rem'
         overflowX='hidden'
+        w='100%'
         >
             <Heading
             marginBottom='3rem'

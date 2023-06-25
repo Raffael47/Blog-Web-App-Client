@@ -19,7 +19,9 @@ export const ResetPassword = () => {
     const passwordSchema = Yup.object().shape({
         password: Yup.string()
         .min(6, "Your password needs to have at least 6 characters")
-        .matches()
+        .matches(/[a-z]+/, "Password no lowercase")
+        .matches(/[A-Z]+/, "Password no uppercase")
+        .matches(/[!@#$%^&*()-+]+/, "Password needs to have at least 1 special character")
         .required("Password is required"),
         confirmPassword: Yup.string()
         .oneOf([Yup.ref("password"), null], "Password must match")
@@ -28,7 +30,7 @@ export const ResetPassword = () => {
 
     const handleSubmit = async(value) => {
         try {
-            const response = await axios.patch("https://minpro-blog.purwadhikabootcamp.com/api/auth/resetPass", value, 
+            await axios.patch("https://minpro-blog.purwadhikabootcamp.com/api/auth/resetPass", value, 
             {
                 headers: {
                     "Authorization":`Bearer ${params.token}`
@@ -129,7 +131,7 @@ export const ResetPassword = () => {
                                     <Button
                                     type='submit'
                                     w='100%'
-                                    _hover={{bgColor:'orange'}}
+                                    _hover={{bgColor:'green.500'}}
                                     >
                                         Reset Password
                                     </Button>

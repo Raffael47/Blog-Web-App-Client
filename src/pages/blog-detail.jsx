@@ -3,10 +3,15 @@ import Navbar from "../components/navbar"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { Footer } from "../components/footer"
 import { FcLike, FcLikePlaceholder } from "react-icons/fc";
+import Footer from "../components/footer"
 
 export const BlogDetail = () => {
+
+    // function sortDate(date) {
+    //     let sliced = date.slice(0, 10)
+    //     return sliced.split("-").reverse().join("-")
+    // }
 
     const [like, setLike] = useState(false)
 
@@ -47,7 +52,9 @@ export const BlogDetail = () => {
         setLike(true)
     }
 
+    
     const { Category, User, content, createdAt, imageURL, videoURL, title } = blogDetail
+    // const {sortDate} = require("../functions/date")
 
     return (
         <Stack
@@ -57,6 +64,7 @@ export const BlogDetail = () => {
 
             <Stack
             alignSelf='center'
+            alignItems='center'
             w='50vw'>
                 <Heading
                 size='3xl'
@@ -73,7 +81,7 @@ export const BlogDetail = () => {
                 <Text
                 size='sm'
                 >
-                    Publish date: {createdAt}
+                    {/* Publish date: {sortDate(createdAt)} */}
                 </Text>
                 <Text>
                     by   <Avatar size='sm' src={`https://minpro-blog.purwadhikabootcamp.com/${User?.imgProfile}`} />   {User?.username}
@@ -85,7 +93,7 @@ export const BlogDetail = () => {
                     <Button
                     position='relative'
                     w='min'
-                    bottom='100px'
+                    bottom='50px'
                     size='lg'
                     left='800px'
                     onClick={handleLike}
@@ -129,7 +137,7 @@ export const BlogDetail = () => {
             <Stack
             padding='0 5rem'>
                 <Text
-                size='xl'
+                fontSize='2xl'
                 >
                     {content}
                 </Text>

@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import axios from "axios"
 import Navbar from "../components/navbar";
 import { useEffect, useState } from "react";
+import Footer from "../components/footer";
 
 export const CreateBlog = () => {
 
@@ -117,7 +118,7 @@ export const CreateBlog = () => {
                                             name="title"
                                             type='text'
                                             border='1px solid black'
-                                            _hover={{border:'1px solid orange'}}
+                                            _hover={{border:'1px solid green.500'}}
                                             />
                                             {/* </InputGroup> */}
                                             <ErrorMessage
@@ -141,7 +142,7 @@ export const CreateBlog = () => {
                                             name="country"
                                             type='text'
                                             border='1px solid black'
-                                            _hover={{border:'1px solid orange'}}
+                                            _hover={{border:'1px solid green.500'}}
                                             />
                                             {/* </InputGroup> */}
                                             <ErrorMessage
@@ -166,7 +167,7 @@ export const CreateBlog = () => {
                                             name="CategoryId"
                                             border='1px solid black'
                                             borderRadius='10px'
-                                            _hover={{border:'1px solid orange'}}
+                                            _hover={{border:'1px solid green.500'}}
                                             >
                                                 {category.map(item => {
                                                     
@@ -219,7 +220,7 @@ export const CreateBlog = () => {
                                             name="url"
                                             type='url'
                                             border='1px solid black'
-                                            _hover={{border:'1px solid orange'}}
+                                            _hover={{border:'1px solid green.500'}}
                                             />
                                             {/* </InputGroup> */}
                                             <ErrorMessage
@@ -243,7 +244,7 @@ export const CreateBlog = () => {
                                             name="keywords"
                                             type='text'
                                             border='1px solid black'
-                                            _hover={{border:'1px solid orange'}}
+                                            _hover={{border:'1px solid green.500'}}
                                             />
                                             {/* // </InputGroup> */}
                                             <ErrorMessage
@@ -255,7 +256,7 @@ export const CreateBlog = () => {
                                             <Button
                                             type='submit'
                                             marginTop='1rem'
-                                            _hover={{bgColor: "orange"}}
+                                            _hover={{bgColor: "green.500"}}
                                             >
                                                 Publish
                                             </Button>
@@ -279,7 +280,7 @@ export const CreateBlog = () => {
                                             minH='300px'
                                             paddingTop='1rem'
                                             border='1px solid black'
-                                            _hover={{border:'1px solid orange'}}
+                                            _hover={{border:'1px solid green.500'}}
                                             />
                                         </Stack>
                                     </Flex>
@@ -289,6 +290,8 @@ export const CreateBlog = () => {
                     }}
 
                 </Formik>
+
+                <Footer/>
 
         </Stack>
     )

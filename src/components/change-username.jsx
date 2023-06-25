@@ -1,4 +1,4 @@
-import { Button, Flex, FormLabel, Input, } from "@chakra-ui/react"
+import { Button, Flex, FormLabel, Input, useToast, } from "@chakra-ui/react"
 import { Formik, Form, ErrorMessage, Field } from "formik";
 import { useSelector } from "react-redux";
 import * as Yup from "yup";
@@ -16,13 +16,21 @@ export const ChangeUsername = () => {
         .required("Username is required")
     })
 
+    const toast = useToast()
+
     const handleUsername = async(value) => {
         try {
             value.currentUsername = username
+            value.FE_URL = "https://main--papaya-cajeta-e43767.netlify.app/"
             await axios.patch("https://minpro-blog.purwadhikabootcamp.com/api/auth/changeUsername", value, {
                 headers: {
                     "Authorization":`Bearer ${token}`
                 }
+            })
+            toast({
+                title:'Check your email to update your profile',
+                status: 'info',
+                isClosable: true
             })
         } catch (error) {
             console.log(error)
@@ -51,7 +59,6 @@ export const ChangeUsername = () => {
                             minW='20%'
                             fontSize='md'
                             htmlFor="newUsername"
-                            border='1px solid black'
                             justifyContent='center'
                             >
                                 Username
@@ -61,6 +68,7 @@ export const ChangeUsername = () => {
                                 name="newUsername"
                                 type= "text"
                                 w='100%'
+                                variant='flushed'
                                 placeholder={username}
                                 />
                             <ErrorMessage
@@ -72,7 +80,7 @@ export const ChangeUsername = () => {
                             <Button
                             type='submit'
                             w='30%'
-                            _hover={{bgColor:'orange'}}
+                            _hover={{bgColor:'green.500'}}
                             disabled={!dirty}
                             >
                                 Update

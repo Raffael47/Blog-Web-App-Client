@@ -1,15 +1,15 @@
 import { ChangePassword } from "../components/change-password"
-import { ChangeProfile } from "../components/update-profile"
-import { Avatar, Box, Flex, Stack, Text, Button, Icon } from "@chakra-ui/react";
+import { Avatar, Flex, Stack, Text, Button, Icon } from "@chakra-ui/react";
 import Navbar from "../components/navbar"
-import { MyArticle } from "../components/my-article";
-import { LikedArticle } from "../components/liked-article";
 import { useSelector } from "react-redux";
 import Footer from "../components/footer";
-import { BsFillKeyFill, BsFillPersonFill, BsPencilSquare } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
+import { BsFillKanbanFill, BsFillKeyFill, BsFillPersonFill, BsPencilSquare } from "react-icons/bs";
 import { FaRegHeart } from "react-icons/fa";
 
-export const UserSettings = () => {
+export const ProfPass = () => {
+
+    const navigate = useNavigate()
 
     const {username, imgProfile} = useSelector(state => state.user.authValue)
 
@@ -46,22 +46,26 @@ export const UserSettings = () => {
                         </Text>
                     </Stack>
                     <Button
-                        leftIcon={<Icon as={BsPencilSquare} />}
+                    leftIcon={<Icon as={BsPencilSquare} />}
+                    onClick={() => navigate("/blogs")}
                     _hover={{bgColor:"green.500", color:'white'}}>
                         My Articles
                     </Button>
                     <Button
                     leftIcon={<Icon as={FaRegHeart} />}
+                    onClick={() => navigate("/liked")}
                     _hover={{bgColor:"green.500", color:'white'}}>
                         Liked Articles
                     </Button>
                     <Button
                     leftIcon={<Icon as={BsFillPersonFill} />}
+                    onClick={() => navigate("/update")}
                     _hover={{bgColor:"green.500", color:'white'}}>
                         Update Profile
                     </Button>
                     <Button
                     leftIcon={<Icon as={BsFillKeyFill} />}
+                    onClick={() => navigate("/password")}
                     _hover={{bgColor:"green.500", color:'white'}}>
                         Change Password
                     </Button>
@@ -71,10 +75,7 @@ export const UserSettings = () => {
             <Flex
             w= '65%'
             >
-            {/* <ChangeProfile/> */}
-            {/* <ChangePassword/> */}
-            {/* <MyArticle/> */}
-            <LikedArticle/>
+            <ChangePassword/>
                 
             </Flex>
         </Flex>

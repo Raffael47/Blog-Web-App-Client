@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Flex, FormLabel, Heading, Icon, Input, InputGroup, Stack, color } from "@chakra-ui/react"
+import { Button, ButtonGroup, Flex, FormLabel, Heading, Icon, Input, InputGroup, Stack, color, useToast } from "@chakra-ui/react"
 import { useState } from "react"
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { Formik, Form, ErrorMessage, Field } from "formik";
@@ -22,18 +22,26 @@ export const Signup = () => {
             .required("Phone number is required"),
         password: Yup.string()
             .min(6, "Your password needs to be at least 6 characters long")
-            .matches()
+            .matches(/[a-z]+/, "Password no lowercase")
+            .matches(/[A-Z]+/, "Password no uppercase")
+            .matches(/[!@#$%^&*()-+]+/, "Password needs to have at least 1 special character")
             .required("Password is required"),
         confirmPassword: Yup.string()
             .required()
             .oneOf([Yup.ref("password"), null], "Password must match")
     })
 
+    const toast = useToast()
+    
     const handleSubmit = async(value) => {
         try {
-            value.FE_URL = "http:/localhost:3000"
+            value.FE_URL = "https://main--papaya-cajeta-e43767.netlify.app/"
             await Axios.post("https://minpro-blog.purwadhikabootcamp.com/api/auth/", value)
-            console.log(value)
+            toast({
+                title:'Check your email to verify',
+                status: 'info',
+                isClosable: true
+            })
         } catch (err) {
             console.log(err)
         }
@@ -193,7 +201,7 @@ export const Signup = () => {
                             type="submit"
                             bgColor='blackAlpha.700'
                             color='white'
-                            _hover={{bg:'orange'}}
+                            _hover={{bg:'green.500'}}
                             >Sign up</Button>
                         
                         </Stack>

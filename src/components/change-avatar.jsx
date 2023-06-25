@@ -73,7 +73,7 @@ export const ChangeAvatar = () => {
                                 />
                                 <Button
                                 type='submit'
-                                _hover={{bgColor: "orange"}}
+                                _hover={{bgColor: "green.500"}}
                                 >
                                     Save
                                 </Button>

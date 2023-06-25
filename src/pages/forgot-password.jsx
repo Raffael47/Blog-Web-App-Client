@@ -1,4 +1,4 @@
-import { Heading, Flex, Stack, Text, Icon, Input, Button } from "@chakra-ui/react"
+import { Heading, Flex, Stack, Text, Icon, Input, Button, useToast } from "@chakra-ui/react"
 import { GoMail } from "react-icons/go";
 import axios from "axios"
 import { Formik, Form, ErrorMessage, Field } from "formik";
@@ -7,10 +7,17 @@ import { Link } from "react-router-dom"
 
 export const ForgotPassword = ()  => {
 
+    const toast = useToast()
+
     const handleSubmit = async(value) => {
         try {
-            value.FE_URL = "http:/localhost:3000"
+            value.FE_URL = "https://main--papaya-cajeta-e43767.netlify.app/"
             await axios.put("https://minpro-blog.purwadhikabootcamp.com/api/auth/forgotPass", value)
+            toast({
+                title:'Check your email to verify',
+                status: 'info',
+                isClosable: true
+            })
         } catch (error) {
             console.log(error)
         }
@@ -26,7 +33,7 @@ export const ForgotPassword = ()  => {
         <Flex
         w='100vw'
         h='100vh'
-        bgColor='orange.500'
+        bgColor='green.500.500'
         justifyContent='center'
         alignItems='center'
         >
@@ -60,8 +67,9 @@ export const ForgotPassword = ()  => {
                 <Formik
                 initialValues={{email: ""}}
                 validationSchema={emailSchema}
-                onSubmit={(value) => {
+                onSubmit={(value, action) => {
                     handleSubmit(value)
+                    action.resetForm()
                 }}
                 >
                     {() => {
@@ -89,7 +97,7 @@ export const ForgotPassword = ()  => {
                                     w='100%'
                                     bgColor='black'
                                     color='white'
-                                    _hover={{bgColor: "orange"}}
+                                    _hover={{bgColor: "green.500"}}
                                     >
                                         Send Link
                                     </Button>
