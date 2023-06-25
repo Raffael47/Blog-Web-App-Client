@@ -6,7 +6,7 @@ import { CheckCircleIcon } from "@chakra-ui/icons";
 
 export const Verify = () => {
 
-    const params = useParams()
+    const {token} = useParams()
     const navigate = useNavigate()
 
     const handleSubmit = async() => {
@@ -15,7 +15,7 @@ export const Verify = () => {
                 "https://minpro-blog.purwadhikabootcamp.com/api/auth/verify/", {},
                 {
                     headers :{
-                    "Authorization":`Bearer ${params.token}`
+                    "Authorization":`Bearer ${token}`
                     }
                 }
             )

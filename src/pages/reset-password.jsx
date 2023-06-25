@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Flex, FormLabel, Heading, Icon, Input, InputGroup, Stack } from "@chakra-ui/react"
+import { Button, ButtonGroup, Flex, FormLabel, Heading, Icon, Input, InputGroup, Stack, useToast } from "@chakra-ui/react"
 import { Formik, Form, ErrorMessage, Field } from "formik";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useState } from "react";
@@ -28,6 +28,8 @@ export const ResetPassword = () => {
         .required()
     })
 
+    const toast = useToast()
+
     const handleSubmit = async(value) => {
         try {
             await axios.patch("https://minpro-blog.purwadhikabootcamp.com/api/auth/resetPass", value, 
@@ -35,6 +37,11 @@ export const ResetPassword = () => {
                 headers: {
                     "Authorization":`Bearer ${params.token}`
                 }
+            })
+            toast({
+                title:'Password reset success',
+                status:'success',
+                isClosable: true
             })
         } catch (error) {
             console.log(error)

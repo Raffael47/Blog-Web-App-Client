@@ -34,6 +34,11 @@ export const ChangePhone = () => {
             })
         } catch (error) {
             console.log(error)
+            toast({
+                title: error.response.config.data,
+                status: 'error',
+                isClosable: true
+            })
         }
     }
 
