@@ -48,7 +48,7 @@ export const Signup = () => {
             console.log(err)
             toast({
                 title:'Email or phone number has already been used',
-                status: 'info',
+                status: 'error',
                 isClosable: true
             })
         }

@@ -34,6 +34,11 @@ export const ChangeUsername = () => {
             })
         } catch (error) {
             console.log(error)
+            toast({
+                title: `Username has already been used`,
+                status: 'error',
+                isClosable: true
+            })
         }
     }
 

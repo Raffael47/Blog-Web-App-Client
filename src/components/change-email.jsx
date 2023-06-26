@@ -35,6 +35,11 @@ export const ChangeEmail = () => {
             })
         } catch (error) {
             console.log(error)
+            toast({
+                title: `Email has already been used`,
+                status: 'error',
+                isClosable: true
+            })
         }
     }
 

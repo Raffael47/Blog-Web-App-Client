@@ -1,4 +1,4 @@
-import { Flex, FormLabel, Heading, Input, InputGroup, Select, Stack, Textarea, Button } from "@chakra-ui/react"
+import { Flex, FormLabel, Heading, Input, InputGroup, Select, Stack, Textarea, Button, useToast } from "@chakra-ui/react"
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios"
@@ -33,19 +33,25 @@ export const CreateBlog = () => {
         )
         })
 
+    const toast = useToast()
+
     const handleCreate = async(value) => {
         try {
             const {title, content, keywords, CategoryId, file, country, url} = value;
             const data = new FormData();
             data.append("data", JSON.stringify({title, content, keywords, CategoryId, country, url}))
             data.append("file", file)
-            console.log(data)
 
             await axios.post("https://minpro-blog.purwadhikabootcamp.com/api/blog/", data, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 },
                 "Content-type": "multipart/form-data"
+            })
+            toast({
+                title: `Blog published`,
+                status: 'success',
+                isClosable: true
             })
         } catch (error) {
             console.log(error)

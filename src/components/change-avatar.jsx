@@ -1,4 +1,4 @@
-import { Avatar, Button, Flex, FormLabel, Input, Stack, InputGroup } from "@chakra-ui/react"
+import { Avatar, Button, Flex, FormLabel, Input, Stack, InputGroup, useToast } from "@chakra-ui/react"
 import { Formik, Form, ErrorMessage, Field } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
@@ -22,6 +22,8 @@ export const ChangeAvatar = () => {
         )
     })
 
+    const toast = useToast()
+
     const handleAvatar = async(value) => {
         try {
             const { file } = value;
@@ -33,6 +35,11 @@ export const ChangeAvatar = () => {
                     "Authorization":`Bearer ${token}`
                 },
                 "Content-type": "multipart/form-data"
+            })
+            toast({
+                title: `Avatar updated`,
+                status: 'error',
+                isClosable: true
             })
         } catch (error) {
             console.log(error)
