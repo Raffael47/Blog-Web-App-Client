@@ -1,4 +1,4 @@
-import { Button, Stack, Box, Heading } from "@chakra-ui/react"
+import { Button, Stack, Box, Heading, Text } from "@chakra-ui/react"
 import Axios from "axios";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -42,9 +42,16 @@ export const Verify = () => {
         >
             <Box textAlign="center" py={10} px={6}>
                 <CheckCircleIcon boxSize={'50px'} color={'green.500'} />
-                <Heading as="h2" size="xl" mt={6} mb={2}>
+                <Heading as="h2" size="xl" mt={6} mb={3} color={'white'}>
                         You are verified
                     </Heading>
+
+                <Text
+                fontSize={'md'}
+                mb='2rem'
+                >
+                    Happy Blogging!
+                </Text>
     
             <Button
             colorScheme="teal"
