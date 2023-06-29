@@ -42,13 +42,14 @@ export const Verify = () => {
         >
             <Box textAlign="center" py={10} px={6}>
                 <CheckCircleIcon boxSize={'50px'} color={'green.500'} />
-                <Heading as="h2" size="xl" mt={6} mb={3} color={'white'}>
+                <Heading as="h2" size="3xl" mt={6} mb={3} color={'white'}>
                         You are verified
                     </Heading>
 
                 <Text
-                fontSize={'md'}
+                fontSize={'xl'}
                 mb='2rem'
+                color={'white'}
                 >
                     Happy Blogging!
                 </Text>

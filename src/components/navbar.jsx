@@ -45,43 +45,19 @@ export default function Navbar() {
             </Heading>
 
             <Link to="/">
-                {/* <Text
-                color='white'
-                _hover={{color: 'green.500'}}
-                >
-                    HOME
-                </Text> */}
                 <Icon as={FaHome} w='7' h='7' color={'white'} _hover={{color: 'green.500'}} />
             </Link>
 
             <Link to="/advanced-search">
-                {/* <Text
-                color='white'
-                _hover={{color: 'green.500'}}
-                >
-                    SEARCH
-                </Text> */}
                 <Icon as={FaSearch} w='7' h='7' color={'white'} _hover={{color: 'green.500'}} />
             </Link>
 
             {token ? (
                 <Link to="/create-blog">
-                {/* <Text
-                color='white'
-                _hover={{color: 'green.500'}}
-                >
-                    CREATE
-                </Text> */}
                 <Icon as={IoIosCreate} w='7' h='7' color={'white'} _hover={{color: 'green.500'}} />
                 </Link>
             ) : (
                 <Link to="/log-in">
-                {/* <Text
-                color='white'
-                _hover={{color: 'green.500'}}
-                >
-                    CREATE
-                </Text> */}
                 <Icon as={IoIosCreate} w='7' h='7' color={'white'} _hover={{color: 'green.500'}} />
                 </Link>
             )}
@@ -100,25 +76,24 @@ export default function Navbar() {
                     src={`https://minpro-blog.purwadhikabootcamp.com/${imgProfile}`}
                     />
                     <Button
-                    rightIcon={<Icon as={GoPerson} w='7' h='7' color={'black'} _hover={{color: 'green.500'}} />}
+                    rightIcon={<Icon as={GoPerson} w='7' h='7'/>}
                     _hover={{bg:'green.500', color:'white'}}
                     onClick={() => navigate("/blogs")}
                     >
                         Profile
                     </Button>
                     <Button
-                    rightIcon={<Icon as={LuLogOut} w='7' h='7' color={'black'} _hover={{color: 'green.500'}} />}
+                    rightIcon={<Icon as={LuLogOut} w='7' h='7' />}
                     _hover={{bg:'green.500', color:'white'}}
                     onClick={logout}
                     >
-                        Log out   
-                        {/* <Icon as={LuLogOut} w='7' h='7' color={'black'} _hover={{color: 'green.500'}} /> */}
+                        Log out  
                     </Button>
                     </>
                 ) : (
                     <>
                     <Button 
-                    rightIcon={<Icon as={LuLogIn} w='7' h='7' color={'black'} _hover={{color: 'green.500'}} />}
+                    rightIcon={<Icon as={LuLogIn} w='7' h='7'/>}
                     _hover={{bg:'green.500', color:'white'}} 
                     onClick={() => navigate("/log-in")} 
                     >Log In

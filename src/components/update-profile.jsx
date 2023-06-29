@@ -8,7 +8,6 @@ export const ChangeProfile = () => {
 
     return (
         <Stack
-        // padding='1rem'
         overflowX='hidden'
         w='100%'
         >

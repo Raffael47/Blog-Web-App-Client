@@ -2,20 +2,22 @@ import { AspectRatio, Avatar, Button, Flex, Heading, Icon, Image, Stack, Text } 
 import Navbar from "../components/navbar"
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { FcLike, FcLikePlaceholder } from "react-icons/fc";
 import Footer from "../components/footer"
 
 export const BlogDetail = () => {
 
-    // function sortDate(date) {
-    //     let sliced = date.slice(0, 10)
-    //     return sliced.split("-").reverse().join("-")
-    // }
+    function sortDate(date) {
+        let sliced = date.slice(0, 10)
+        return sliced.split("-").reverse().join("-")
+    }
 
     const [like, setLike] = useState(false)
+    const [date, setDate] = useState("")
 
     const token = localStorage.getItem("token")
+    // const {sortDate} = require("../functions/date")
 
     const postLike = async() => {
         try {
@@ -30,6 +32,7 @@ export const BlogDetail = () => {
     }
 
     const params = useParams()
+    const navigate = useNavigate()
 
     const [blogDetail, setBlogDetail] = useState({})
 
@@ -38,6 +41,7 @@ export const BlogDetail = () => {
             const {data} = await axios.get(`https://minpro-blog.purwadhikabootcamp.com/api/blog/${params.id}`)
             console.log(data[0])
             setBlogDetail(data[0])
+            setDate(sortDate(createdAt))
         } catch (error) {
             console.log(error)
         }
@@ -54,7 +58,6 @@ export const BlogDetail = () => {
 
     
     const { Category, User, content, createdAt, imageURL, videoURL, title } = blogDetail
-    // const {sortDate} = require("../functions/date")
 
     return (
         <Stack
@@ -74,14 +77,17 @@ export const BlogDetail = () => {
                     {title}
                 </Heading>
                 <Text
-                size='sm'
+                fontSize='xl'
+                fontWeight={'bold'}
+                textTransform={'uppercase'}
+                color={'green.500'}
                 >
                     {Category?.name}
                 </Text>
                 <Text
                 size='sm'
                 >
-                    {/* Publish date: {sortDate(createdAt)} */}
+                    Publish date: {date}
                 </Text>
                 <Text>
                     by   <Avatar size='sm' src={`https://minpro-blog.purwadhikabootcamp.com/${User?.imgProfile}`} />   {User?.username}
@@ -100,7 +106,18 @@ export const BlogDetail = () => {
                     >
                         {like ? <Icon as={FcLike} size='2xl' /> : <Icon as={FcLikePlaceholder} size='2xl' /> }
                     </Button>
-            ) : null
+            ) : (
+                <Button
+                position='relative'
+                w='min'
+                bottom='50px'
+                size='lg'
+                left='800px'
+                onClick={() => navigate('/log-in')}
+                >
+                    {like ? <Icon as={FcLike} size='2xl' /> : <Icon as={FcLikePlaceholder} size='2xl' /> }
+                </Button>
+            )
             }
 
             {videoURL === null ? (

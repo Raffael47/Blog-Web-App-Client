@@ -3,7 +3,7 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import Footer from "./footer";
-import { ArrowLeftIcon } from "@chakra-ui/icons";
+import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 
 export const LikedArticle = () => {
 
@@ -17,13 +17,14 @@ export const LikedArticle = () => {
     const navigate = useNavigate()
 
 
-    const getLikedBlog = async() => {
+    const getLikedBlog = async(value) => {
         try {
-            const {data} = await axios.get(`https://minpro-blog.purwadhikabootcamp.com/api/blog/pagLike`, {
+            const {data} = await axios.get(`https://minpro-blog.purwadhikabootcamp.com/api/blog/pagLike?page=${value}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             })
+            console.log(data)
             setBlog(data)
             setLikedBlog(data.result)
         } catch (error) {
@@ -98,8 +99,9 @@ export const LikedArticle = () => {
                     blogPage === 1 ? null : (
                         <Button
                         onClick={() => setBlogPage(blogPage - 1)}
+                        _hover={{bgColor:'green.500', color:'white'}}
                         >
-                            <Icon as={ArrowLeftIcon} w='5' h='5' color={'black'} _hover={{bgColor:'green.500'}} />
+                            <Icon as={ArrowLeftIcon} w='5' h='5' />
                         </Button>
                     )
                 }
@@ -121,11 +123,12 @@ export const LikedArticle = () => {
                 }
 
                 {
-                    blogPage === 1 ? null : blogPage === blog.page ? null : (
+                    blog.page === blogPage ? null : blogPage === blog.page ? null : (
                         <Button
                         onClick={() => setBlogPage(blogPage + 1)}
+                        _hover={{bgColor:'green.500', color:'white'}}
                         >
-                            Next
+                            <Icon as={ArrowRightIcon} w='5' h='5' />
                         </Button>
                     )
                     

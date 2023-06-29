@@ -85,7 +85,7 @@ export const ChangeUsername = () => {
                             <Button
                             type='submit'
                             w='30%'
-                            _hover={{bgColor:'green.500'}}
+                            _hover={{bgColor:'green.500', color:'white'}}
                             disabled={!dirty}
                             >
                                 Update

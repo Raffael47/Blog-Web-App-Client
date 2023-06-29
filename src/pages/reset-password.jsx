@@ -4,11 +4,12 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useState } from "react";
 import * as Yup from "yup";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const ResetPassword = () => {
 
     const params = useParams()
+    const navigate = useNavigate()
 
     const [show, setShow] = useState(false)
     const [confirmShow, setConfirmShow] = useState(false)
@@ -43,6 +44,7 @@ export const ResetPassword = () => {
                 status:'success',
                 isClosable: true
             })
+            navigate('/')
         } catch (error) {
             console.log(error)
         }
@@ -77,6 +79,7 @@ export const ResetPassword = () => {
                 onSubmit= {(value, action) => {
                     handleSubmit(value)
                     action.resetForm()
+                    navigate('/')
                 }}
                 >
                     {() => {
@@ -138,7 +141,7 @@ export const ResetPassword = () => {
                                     <Button
                                     type='submit'
                                     w='100%'
-                                    _hover={{bgColor:'green.500'}}
+                                    _hover={{bgColor:'green.500', color:'white'}}
                                     >
                                         Reset Password
                                     </Button>

@@ -202,9 +202,9 @@ export const Signup = () => {
                             />
                             </Flex>
 
-                    <Text as={Link} to={'/'} color={'green.500'} justifySelf={'end'}>
+                    <Flex as={Link} to={'/'} color={'green.500'} align={'center'}>
                     Back to home
-                    </Text>
+                    </Flex>
                     
                     </Flex>
 

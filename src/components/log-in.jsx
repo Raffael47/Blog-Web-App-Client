@@ -101,13 +101,13 @@ export const Login = () => {
         gap='1rem'
         alignSelf='center'
         >
-            <Button onClick={() => handleInputType("username")}>
+            <Button onClick={() => handleInputType("username")} _hover={{bgColor:'green.500', color:'white'}}>
                 Username
             </Button>
-            <Button onClick={() => handleInputType("email")}>
+            <Button onClick={() => handleInputType("email")} _hover={{bgColor:'green.500', color:'white'}}>
                 Email
             </Button>
-            <Button onClick={() => handleInputType("phone")}>
+            <Button onClick={() => handleInputType("phone")} _hover={{bgColor:'green.500', color:'white'}}>
                 Phone number
             </Button>
         </ButtonGroup>
@@ -175,7 +175,7 @@ export const Login = () => {
                             <Button 
                             w='100%' 
                             type="submit"
-                            _hover={{bgColor: 'green.500'}}
+                            _hover={{bgColor:'green.500', color:'white'}}
                             >
                                 Log in
                             </Button>

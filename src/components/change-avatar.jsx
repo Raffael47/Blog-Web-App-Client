@@ -30,7 +30,7 @@ export const ChangeAvatar = () => {
             const data = new FormData();
             data.append("file", file)
 
-            const response = await axios.post("https://minpro-blog.purwadhikabootcamp.com/api/profile/single-uploaded", data, {
+            await axios.post("https://minpro-blog.purwadhikabootcamp.com/api/profile/single-uploaded", data, {
                 headers: {
                     "Authorization":`Bearer ${token}`
                 },
@@ -38,11 +38,16 @@ export const ChangeAvatar = () => {
             })
             toast({
                 title: `Avatar updated`,
-                status: 'error',
+                status: 'success',
                 isClosable: true
             })
         } catch (error) {
             console.log(error)
+            toast({
+                title: `Failed to update your avatar`,
+                status: 'error',
+                isClosable: true
+            })
         }
     }
 
@@ -69,7 +74,7 @@ export const ChangeAvatar = () => {
                             <InputGroup
                             >
                                 <Input
-                                as={Input}
+                                as={Field}
                                 type='file'
                                 name='file'
                                 accept="image/*"
@@ -80,10 +85,15 @@ export const ChangeAvatar = () => {
                                 />
                                 <Button
                                 type='submit'
-                                _hover={{bgColor: "green.500"}}
+                                _hover={{bgColor:'green.500', color:'white'}}
                                 >
                                     Save
                                 </Button>
+                                <ErrorMessage
+                                component='div'
+                                name="file"
+                                style={{ color: "red", fontSize: "15px", marginTop: 0 }}
+                                />
                             </InputGroup>
                         </Form>
                     )
